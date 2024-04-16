@@ -43,5 +43,14 @@ PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 # Autosuggestions
 source ~/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Syntax Highlighting plugin (must be at the end)
+# Syntax Highlighting plugin
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# History substring search
+source ~/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
