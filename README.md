@@ -2,11 +2,13 @@
 
 This repo contains all my dot files
 
+![Screenshot example](https://github.com/Dowdow/dowfiles/blob/main/screenshot.png?raw=true)
+
 ## Setup
 
 ```bash
 # Install dependencies
-sudo apt install -y git stow zsh zsh-syntax-highlighting
+sudo apt install -y git stow zsh
 
 # Clone the repo with submodules in your home directory
 git clone --recurse-submodules https://github.com/Dowdow/dowfiles.git

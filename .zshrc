@@ -43,7 +43,7 @@ PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax Highlighting plugin
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # History substring search
 source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh

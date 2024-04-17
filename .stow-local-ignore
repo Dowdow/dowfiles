@@ -1,5 +1,6 @@
 \.git
 \.gitignore
 \.gitmodules
+\screenshot.png
 
 ^/README.*
