@@ -1,6 +1,5 @@
 \.git
 \.gitignore
 \.gitmodules
-\windows-settings.json
 
 ^/README.*
