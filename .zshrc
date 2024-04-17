@@ -21,8 +21,7 @@ autoload -Uz vcs_info
 precmd() { vcs_info }
 
 # Init completion
-setopt MENU_COMPLETE
-setopt COMPLETE_IN_WORD
+setopt AUTO_MENU
 autoload -Uz compinit
 compinit
 
