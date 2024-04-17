@@ -1,5 +1,6 @@
 #!/bin/sh
 
+fpath=(~/.zsh/functions $fpath)
 fpath=(~/.zsh/plugins/zsh-completions/src $fpath)
 
 # Aliases
@@ -34,6 +35,8 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' file-list all
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':vcs_info:git:*' formats '%b '
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Prompt
 setopt PROMPT_SUBST
