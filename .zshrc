@@ -28,6 +28,14 @@ compinit
 # Autocomplete dotfiles
 _comp_options+=(globdots)
 
+# Symfony autocomplete
+source ~/.zsh/plugins/symfony-complete.plugin.zsh/symfony-complete.plugin.zsh
+compdef _symfony_complete symfony
+compdef _symfony_complete composer
+compdef _symfony_complete console
+compdef _symfony_complete phpstan
+compdef _symfony_complete php-cs-fixer
+
 # Completions
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' menu select
