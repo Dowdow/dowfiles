@@ -28,14 +28,6 @@ compinit
 # Autocomplete dotfiles
 _comp_options+=(globdots)
 
-# Symfony autocomplete
-source ~/.zsh/plugins/symfony-complete.plugin.zsh/symfony-complete.plugin.zsh
-compdef _symfony_complete symfony
-compdef _symfony_complete composer
-compdef _symfony_complete console
-compdef _symfony_complete phpstan
-compdef _symfony_complete php-cs-fixer
-
 # Completions
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' menu select
@@ -48,6 +40,14 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # Prompt
 setopt PROMPT_SUBST
 PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
+
+# Symfony autocomplete
+source ~/.zsh/plugins/symfony-complete.plugin.zsh/symfony-complete.plugin.zsh
+compdef _symfony_complete symfony
+# compdef _symfony_complete composer
+compdef _symfony_complete console
+compdef _symfony_complete phpstan
+compdef _symfony_complete php-cs-fixer
 
 # Autosuggestions
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
