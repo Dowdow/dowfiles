@@ -49,6 +49,9 @@ compdef _symfony_complete console
 compdef _symfony_complete phpstan
 compdef _symfony_complete php-cs-fixer
 
+# Npm completions
+source ~/.zsh/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+
 # Autosuggestions
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
