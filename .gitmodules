@@ -1,18 +1,18 @@
 [submodule ".zsh/plugins/zsh-completions"]
-	path = .zsh/plugins/zsh-completions
+	path = zsh/.config/zsh/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
 [submodule ".zsh/plugins/zsh-autosuggestions"]
-	path = .zsh/plugins/zsh-autosuggestions
+	path = zsh/.config/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
 [submodule ".zsh/plugins/zsh-history-substring-search"]
-	path = .zsh/plugins/zsh-history-substring-search
+	path = zsh/.config/zsh/plugins/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search.git
 [submodule ".zsh/plugins/zsh-syntax-highlighting"]
-	path = .zsh/plugins/zsh-syntax-highlighting
+	path = zsh/.config/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 [submodule ".zsh/plugins/symfony-complete.plugin.zsh"]
-	path = .zsh/plugins/symfony-complete.plugin.zsh
+	path = zsh/.config/zsh/plugins/symfony-complete.plugin.zsh
 	url = https://github.com/voronkovich/symfony-complete.plugin.zsh
 [submodule ".zsh/plugins/zsh-better-npm-completion"]
-	path = .zsh/plugins/zsh-better-npm-completion
+	path = zsh/.config/zsh/plugins/zsh-better-npm-completion
 	url = https://github.com/lukechilds/zsh-better-npm-completion.git

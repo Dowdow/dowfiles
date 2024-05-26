@@ -1,10 +1,10 @@
 #!/bin/sh
 
-fpath=(~/.zsh/functions $fpath)
-fpath=(~/.zsh/plugins/zsh-completions/src $fpath)
+fpath=(~/.config/zsh/functions $fpath)
+fpath=(~/.config/zsh/plugins/zsh-completions/src $fpath)
 
 # Aliases
-source ~/.zsh/aliases.zsh
+source ~/.config/zsh/aliases.zsh
 
 # Disable beeps
 unsetopt BEEP
@@ -42,7 +42,7 @@ setopt PROMPT_SUBST
 PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
 
 # Symfony autocomplete
-source ~/.zsh/plugins/symfony-complete.plugin.zsh/symfony-complete.plugin.zsh
+source ~/.config/zsh/plugins/symfony-complete.plugin.zsh/symfony-complete.plugin.zsh
 compdef _symfony_complete symfony
 # compdef _symfony_complete composer
 compdef _symfony_complete console
@@ -50,16 +50,16 @@ compdef _symfony_complete phpstan
 compdef _symfony_complete php-cs-fixer
 
 # Npm completions
-source ~/.zsh/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
+source ~/.config/zsh/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh
 
 # Autosuggestions
-source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Syntax Highlighting plugin
-source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # History substring search
-source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ~/.config/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -68,7 +68,7 @@ bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 
 # Additionnal config
-for file in ~/.zsh/custom/*; do
+for file in ~/.config/zsh/custom/*; do
   if [ -f "$file" ]; then
     . "$file"
   fi
