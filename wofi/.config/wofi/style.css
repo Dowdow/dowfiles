@@ -1,0 +1,41 @@
+window {
+    font-family: "JetBrains Mono Regular";
+    font-size: 16px;
+    letter-spacing: -0.7px;
+
+    background-color: #0D101B;
+    color: #EBEEF9;
+    opacity: 0.95;
+}
+
+#input {
+    font-size: 16px;
+    color: #EBEEF9;
+    background-color: #0D101B;
+
+    border: none;
+    border-radius: 0;
+
+    padding: 0.3em 0.5em;
+}
+
+#entry {
+    border: none;
+    border-radius: 0;
+}
+
+#entry:selected {
+    background-color: #6488C4;
+    color: #0D101B;
+    border: none;
+    border-radius: 0;
+}
+
+#text:selected {
+    color: #0D101B;
+}
+
+image {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}

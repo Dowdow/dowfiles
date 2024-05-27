@@ -9,25 +9,68 @@ This repo contains all my dot files
 ```bash
 # Install dependencies
 sudo apt install -y git stow zsh
+sudo pacman -S git stow zsh
 
 # Clone the repo with submodules in your home directory
 git clone --recurse-submodules https://github.com/Dowdow/dowfiles.git
 
 # Install the config with symlinks
 cd dowfiles
-stow .
+stow */ # to link everything
+stow git zsh # to use only git and zsh
 
 # Make zsh as default shell
 chsh -s $(which zsh)
 
 # Restart your terminal
 ```
+## Arch
 
-## Custom config
+Arch configuration for hyprland usage
 
-The custom config can be added in `.zsh/custom` and will be ignored by git.
+### Packages
 
-## Windows Terminal (WSL) Theme
+```bash
+sudo pacman -S alacritty discord dolphin dunst hyprpaper hyprland openssh otf-font-awesome pipewire qt5-wayland qt6-wayland ttf-jetbrains-mono waybar wayland wofi
+```
+
+### Nvidia config
+
+[Arch Nvidia](https://wiki.archlinux.org/title/NVIDIA)
+[Hyprland Nvidia](https://wiki.hyprland.org/Nvidia/)
+
+```bash
+# Nvidia packages
+sudo pacman -S libva-nvidia-driver linux-headers nvidia-dkms
+
+# Automatic KMS late loading (maybe need reboot)
+modprobe nvidia_drm modeset=1
+cat /sys/module/nvidia_drm/parameters/modeset # Should return Y
+
+# Grub config
+sudo nano /etc/default/grub
+# GRUB_CMDLINE_LINUX_DEFAULT=" ... nvidia_drm.modeset=1"
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Mkinitcpio config
+sudo nano /etc/mkinitcpio.conf
+# MODULES=( ... nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+sudo mkinitcpio -P
+
+# Power management
+sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable nvidia-hibernate.service
+sudo systemctl enable nvidia-resume.service
+modprobe nvidia NVreg_PreserveVideoMemoryAllocations=1
+```
+
+## Zsh
+
+### Custom zsh config
+
+The custom config can be added in `zsh/.config/zsh/custom` and will be ignored by git.
+
+### Windows Terminal (WSL) Theme
 
 Color theme to add as Json under the `"schemes":` array.
 
