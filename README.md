@@ -31,12 +31,17 @@ Arch configuration for hyprland usage
 ### Packages
 
 ```bash
-sudo pacman -S alacritty discord dolphin dunst hyprpaper hyprland nwg-look openssh otf-font-awesome pipewire qt5-wayland qt6-wayland ttf-jetbrains-mono waybar wayland wofi
+sudo pacman -S alacritty discord dolphin dunst firefox hyprpaper hyprland nwg-look openssh pipewire qt5-wayland qt6-wayland ttf-font-awesome ttf-jetbrains-mono-nerd waybar wayland wofi
 ```
+
+### UI Config
+
+Use `nwg-look` or `GTK Settings` with wofi to set prefer dark mode and set `JetBrains Mono Nerd Regular` as default font.
 
 ### Nvidia config
 
 [Arch Nvidia](https://wiki.archlinux.org/title/NVIDIA)
+
 [Hyprland Nvidia](https://wiki.hyprland.org/Nvidia/)
 
 ```bash
