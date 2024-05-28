@@ -57,6 +57,10 @@ sudo nano /etc/default/grub
 # GRUB_CMDLINE_LINUX_DEFAULT=" ... nvidia_drm.modeset=1"
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
+# Systemdboot config
+sudo nano /boot/loader/entries/arch.conf
+# nvidia_drm.modeset=1
+
 # Mkinitcpio config
 sudo nano /etc/mkinitcpio.conf
 # MODULES=( ... nvidia nvidia_modeset nvidia_uvm nvidia_drm)
