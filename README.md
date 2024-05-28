@@ -31,7 +31,7 @@ Arch configuration for hyprland usage
 ### Packages
 
 ```bash
-sudo pacman -S alacritty discord dolphin dunst hyprpaper hyprland openssh otf-font-awesome pipewire qt5-wayland qt6-wayland ttf-jetbrains-mono waybar wayland wofi
+sudo pacman -S alacritty discord dolphin dunst hyprpaper hyprland nwg-look openssh otf-font-awesome pipewire qt5-wayland qt6-wayland ttf-jetbrains-mono waybar wayland wofi
 ```
 
 ### Nvidia config
