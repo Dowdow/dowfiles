@@ -2,49 +2,80 @@
     "layer": "top",
     "spacing": 4,
     "modules-left": [
-        "hyprland/workspaces",
+        "custom/launcher",
         "tray"
     ],
     "modules-center": [
-        "hyprland/window"
+        "hyprland/workspaces"
     ],
     "modules-right": [
-        "network",
         "cpu",
         "memory",
         "temperature",
+        "network",
+        "battery",
         "clock"
     ],
-    "tray": {
-        "spacing": 10
+    "custom/launcher": {
+        "format": "🦆 oui",
+        "tooltip": false,
+        "on-click": " if pgrep wofi > /dev/null; then killall wofi; else wofi --show drun; fi"
     },
-    "clock": {
-        "timezone": "Europe/Paris",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+    "tray": {
+        "spacing": 10,
+        "icon-size": 16
+    },
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "persistent-workspaces": {
+            "*": 5
+        }
     },
     "cpu": {
-        "format": "{usage}% ",
-        "tooltip": false
+        "tooltip": false,
+        "format": "  {usage}%"
     },
     "memory": {
-        "format": "{}% "
+        "tooltip": false,
+        "format": " {}%"
     },
     "temperature": {
+        "tooltip": false,
         "critical-threshold": 80,
-        "format": "{temperatureC}°C {icon}",
+        "format": "{icon} {temperatureC}°C",
         "format-icons": [
-            "",
+            "",
+            "",
             "",
-            ""
+            "",
+            ""
         ]
     },
     "network": {
-        "format-wifi": "",
-        "format-ethernet": "",
-        "tooltip-format": "{essid} ({signalStrength}%)",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "tooltip": false,
+        "format-wifi": " {essid}",
+        "format-ethernet": " {ifname}"
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "clock": {
+        "timezone": "Europe/Paris",
+        "format": "  {:%a %d/%m/%Y    %H:%M}"
     }
 }

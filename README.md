@@ -30,9 +30,7 @@ Arch configuration for hyprland usage
 
 ### Packages
 
-```bash
-sudo pacman -S alacritty discord dolphin dunst firefox hyprpaper hyprland nwg-look openssh pipewire qt5-wayland qt6-wayland ttf-font-awesome ttf-jetbrains-mono-nerd waybar wayland wofi
-```
+For the list of Arch packages, see `install_arch.sh` script.
 
 ### UI Config
 
