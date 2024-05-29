@@ -81,6 +81,8 @@ The custom config can be added in `zsh/.config/zsh/custom` and will be ignored b
 
 Color theme to add as Json under the `"schemes":` array.
 
+![Windows Terminal](https://github.com/Dowdow/dowfiles/blob/main/terminal-windows.png?raw=true)
+
 ```json
 {
   "background": "#0D101B",
