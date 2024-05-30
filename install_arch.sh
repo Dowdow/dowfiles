@@ -23,4 +23,5 @@ ttf-font-awesome \
 ttf-jetbrains-mono-nerd \
 waybar \
 wayland \
+wireplumber \
 wofi \

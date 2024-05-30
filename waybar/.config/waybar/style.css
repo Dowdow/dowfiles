@@ -77,7 +77,7 @@ window#waybar {
 /** CPU **/
 
 #cpu {
-    color: #F99170;
+    color: #EE829F;
     padding-left: 11px;
     padding-right: 10px;
 }
@@ -85,7 +85,7 @@ window#waybar {
 /** Memory **/
 
 #memory {
-    color: #A5FFE1;
+    color: #F99170;
     padding-left: 11px;
     padding-right: 10px;
     border-left: 1px solid #EBEEF9;
@@ -94,7 +94,7 @@ window#waybar {
 /** Temperature **/
 
 #temperature {
-    color: #8BE9FD;
+    color: #A5FFE1;
     padding-left: 11px;
     padding-right: 10px;
     border-left: 1px solid #EBEEF9;
@@ -103,15 +103,24 @@ window#waybar {
 /** Network **/
 
 #network {
-    color: #97BBF7;
+    color: #8BE9FD;
     padding-left: 12px;
     padding-right: 10px;
     border-left: 1px solid #EBEEF9;
 }
 
-/** Network **/
+/** Battery **/
 
 #battery {
+    color: #97BBF7;
+    padding-left: 11px;
+    padding-right: 10px;
+    border-left: 1px solid #EBEEF9;
+}
+
+/** Audio **/
+
+#wireplumber {
     color: #C0B7F9;
     padding-left: 11px;
     padding-right: 10px;
