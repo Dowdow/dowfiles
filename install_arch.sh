@@ -2,11 +2,13 @@
 
 sudo pacman -S \
 alacritty \
+bat \
 brightnessctl \
 discord \
 dolphin \
 dunst \
 firefox \
+fzf \
 grim \
 hypridle \
 hyprland \

@@ -67,6 +67,11 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 
+# Fzf key bindings and fuzzy completion
+if command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
+
 # Additionnal config
 for file in ~/.config/zsh/custom/*; do
   if [ -f "$file" ]; then
