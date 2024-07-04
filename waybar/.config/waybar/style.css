@@ -109,6 +109,15 @@ window#waybar {
     border-left: 1px solid #EBEEF9;
 }
 
+/** Bluetooth **/
+
+#bluetooth {
+    color: #8BE9FD;
+    padding-left: 12px;
+    padding-right: 10px;
+    border-left: 1px solid #EBEEF9;
+}
+
 /** Battery **/
 
 #battery {

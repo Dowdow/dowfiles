@@ -13,6 +13,7 @@
         "memory",
         "temperature",
         "network",
+        "bluetooth",
         "battery",
         "wireplumber",
         "clock"
@@ -58,6 +59,14 @@
         "format-ethernet": " {ifname}",
         "format-disconnected": " d/c",
         "on-click": "alacritty -e nmtui"
+    },
+    "bluetooth": {
+        "tooltip": false,
+        "format": " {status}",
+        "format-disabled": "",
+        "format-connected": " {device_alias}",
+        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+        "on-click": "blueman-manager"
     },
     "battery": {
         "tooltip": false,
