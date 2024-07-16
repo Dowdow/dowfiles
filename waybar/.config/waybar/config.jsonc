@@ -101,6 +101,7 @@
     },
     "clock": {
         "timezone": "Europe/Paris",
-        "format": "  {:%a %d/%m/%Y    %H:%M}"
+        "format": "  {:%a %d/%m/%Y    %H:%M}",
+        "on-click": "gnome-calendar"
     }
 }
