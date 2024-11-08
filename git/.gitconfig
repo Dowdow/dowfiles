@@ -3,3 +3,5 @@
 	name = Léo Riera
 [init]
 	defaultbranch = main
+[core]
+	editor = nano
