@@ -19,7 +19,7 @@
         "clock"
     ],
     "custom/launcher": {
-        "format": "🦆 oui",
+        "format": "🦆",
         "tooltip": false,
         "on-click": "if pgrep wofi > /dev/null; then killall wofi; else wofi --show drun; fi"
     },
@@ -30,7 +30,7 @@
     "hyprland/workspaces": {
         "disable-scroll": true,
         "persistent-workspaces": {
-            "*": 5
+            "*": 6
         }
     },
     "cpu": {
