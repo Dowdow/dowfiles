@@ -1,3 +1,5 @@
+@import "mocha.css";
+
 * {
     font-family: "Noto Color Emoji Regular", "JetBrainsMono Nerd Font";
     font-size: 14px;
@@ -5,30 +7,31 @@
 
 #waybar {
     background-color: transparent;
-    color: #EBEEF9;
+    color: @text;
 }
 
 .modules-left {
-    margin-top: 5px;
-    margin-left: 5px;
+    margin: 5px;
     padding: 0 10px;
-    background: #0D101B;
+    background-color: @base;
     border-radius: 0.5rem;
+    border: 1px solid @surface0;
     transition: none;
 }
 
 .modules-center {
-    margin-top: 5px;
-    background: #0D101B;
+    margin: 5px;
+    background-color: @base;
     border-radius: 0.5rem;
+    border: 1px solid @surface0;
     transition: none;
 }
 
 .modules-right {
-    margin-top: 5px;
-    margin-right: 5px;
-    background: #0D101B;
+    margin: 5px;
+    background-color: @base;
     border-radius: 0.5rem;
+    border: 1px solid @surface0;
     transition: none;
 }
 
@@ -48,8 +51,8 @@
 
 #tray menu {
     font-size: 16px;
-    background-color: #0D101B;
-    color: #EBEEF9;
+    background-color: @surface0;
+    color: @text;
 }
 
 /** Workspaces **/
@@ -64,50 +67,43 @@
 }
 
 #workspaces button.active {
-    background-color: #FFFFFF;
-    color: #0D101B;
+    background-color: @lavender;
+    color: @crust;
     border-radius: 1rem;
-}
-
-#workspaces button:hover {
-    background-color: #C0B7F9;
-    color: #FFFFFF;
-    border-radius: 1rem;
-    transition: none;
 }
 
 /** CPU **/
 
 #cpu {
-    color: #EE829F;
+    color: @red;
     padding: 0 10px;
 }
 
 /** Memory **/
 
 #memory {
-    color: #F99170;
+    color: @peach;
     padding: 0 10px;
 }
 
 /** Temperature **/
 
 #temperature {
-    color: #A5FFE1;
+    color: @teal;
     padding: 0 10px;
 }
 
 /** Network **/
 
 #network {
-    color: #8BE9FD;
+    color: @sky;
     padding: 0 10px;
 }
 
 /** Bluetooth **/
 
 #bluetooth {
-    color: #8BE9FD;
+    color: @sapphire;
     padding: 0 10px;
 }
 
@@ -121,13 +117,13 @@
 /** Audio **/
 
 #wireplumber {
-    color: #C0B7F9;
+    color: @blue;
     padding: 0 10px;
 }
 
 /** Clock **/
 
 #clock {
-    color: #FFFFFF;
+    color: @text;
     padding: 0 10px;
 }

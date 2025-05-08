@@ -19,6 +19,7 @@ hyprlock \
 hyprpaper \
 man \
 nautilus \
+neovim \
 noto-fonts-emoji \
 nwg-look \
 openssh \

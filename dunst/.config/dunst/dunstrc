@@ -1,0 +1,19 @@
+[global]
+frame_color = "#45475a"
+frame_width = 1
+corner_radius = 3
+separator_color= frame
+highlight = "#45475a"
+
+[urgency_low]
+background = "#313244"
+foreground = "#cdd6f4"
+
+[urgency_normal]
+background = "#313244"
+foreground = "#cdd6f4"
+
+[urgency_critical]
+background = "#313244"
+foreground = "#cdd6f4"
+frame_color = "#f38ba8"

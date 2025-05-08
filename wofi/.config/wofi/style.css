@@ -3,14 +3,14 @@ window {
     font-size: 16px;
     letter-spacing: -0.7px;
 
-    background-color: #0D101B;
-    color: #EBEEF9;
+    background-color: #313244;
+    color: #cdd6f4;
 }
 
 #input {
     font-size: 16px;
-    color: #EBEEF9;
-    background-color: #0D101B;
+    color: #cdd6f4;
+    background-color: #313244;
 
     border: none;
     border-radius: 0;
@@ -24,14 +24,14 @@ window {
 }
 
 #entry:selected {
-    background-color: #6488C4;
-    color: #0D101B;
+    background-color: #b4befe;
+    color: #11111b;
     border: none;
     border-radius: 0;
 }
 
 #text:selected {
-    color: #0D101B;
+    color: #11111b;
 }
 
 image {
