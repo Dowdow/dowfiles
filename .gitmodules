@@ -16,3 +16,6 @@
 [submodule ".zsh/plugins/zsh-better-npm-completion"]
 	path = zsh/.config/zsh/plugins/zsh-better-npm-completion
 	url = https://github.com/lukechilds/zsh-better-npm-completion.git
+[submodule "zsh/.config/zsh/plugins/zsh-syntax-highlighting-catppuccin"]
+	path = zsh/.config/zsh/plugins/zsh-syntax-highlighting-catppuccin
+	url = https://github.com/catppuccin/zsh-syntax-highlighting.git
