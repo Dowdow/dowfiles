@@ -23,15 +23,16 @@ neovim \
 noto-fonts-emoji \
 nwg-look \
 openssh \
+otf-font-awesome \
 pipewire \
 qt5-wayland \
 qt6-wayland \
 slurp \
-ttf-font-awesome \
 ttf-jetbrains-mono-nerd \
 waybar \
 wayland \
 wireplumber \
 wofi \
+xdg-desktop-portal-hyprland \
 
 sudo systemctl enable bluetooth.service blueman-mechanism.service

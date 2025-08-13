@@ -1,108 +1,87 @@
 {
-    "layer": "top",
-    "spacing": 4,
-    "modules-left": [
-        "custom/launcher",
-        "tray"
-    ],
-    "modules-center": [
-        "hyprland/workspaces"
-    ],
-    "modules-right": [
-        "cpu",
-        "memory",
-        "temperature",
-        "network",
-        "bluetooth",
-        "battery",
-        "wireplumber",
-        "clock"
-    ],
-    "custom/launcher": {
-        "format": "🦆",
-        "tooltip": false,
-        "on-click": "if pgrep wofi > /dev/null; then killall wofi; else wofi --show drun; fi"
+  "layer": "top",
+  "spacing": 4,
+  "modules-left": ["custom/launcher", "tray"],
+  "modules-center": ["hyprland/workspaces"],
+  "modules-right": [
+    "cpu",
+    "memory",
+    "temperature",
+    "network",
+    "bluetooth",
+    "battery",
+    "wireplumber",
+    "clock",
+  ],
+  "custom/launcher": {
+    "format": "🦆",
+    "tooltip": false,
+    "on-click": "if pgrep wofi > /dev/null; then killall wofi; else wofi --show drun; fi",
+  },
+  "tray": {
+    "spacing": 10,
+    "icon-size": 16,
+  },
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "persistent-workspaces": {
+      "*": 6,
     },
-    "tray": {
-        "spacing": 10,
-        "icon-size": 16
+  },
+  "cpu": {
+    "tooltip": false,
+    "format": "  {usage}%",
+  },
+  "memory": {
+    "tooltip": false,
+    "format": " {}%",
+  },
+  "temperature": {
+    "tooltip": false,
+    "critical-threshold": 80,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": ["", "", "", "", ""],
+  },
+  "network": {
+    "tooltip": false,
+    "format-wifi": "  {essid}",
+    "format-ethernet": " {ifname}",
+    "format-disconnected": " d/c",
+    "on-click": "alacritty -e nmtui",
+  },
+  "bluetooth": {
+    "tooltip": false,
+    "format": " {status}",
+    "format-disabled": "",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "on-click": "blueman-manager",
+  },
+  "battery": {
+    "tooltip": false,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20,
     },
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "persistent-workspaces": {
-            "*": 6
-        }
-    },
-    "cpu": {
-        "tooltip": false,
-        "format": "  {usage}%"
-    },
-    "memory": {
-        "tooltip": false,
-        "format": " {}%"
-    },
-    "temperature": {
-        "tooltip": false,
-        "critical-threshold": 80,
-        "format": "{icon} {temperatureC}°C",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
-    },
-    "network": {
-        "tooltip": false,
-        "format-wifi": "  {essid}",
-        "format-ethernet": " {ifname}",
-        "format-disconnected": " d/c",
-        "on-click": "alacritty -e nmtui"
-    },
-    "bluetooth": {
-        "tooltip": false,
-        "format": " {status}",
-        "format-disabled": "",
-        "format-connected": " {device_alias}",
-        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
-        "on-click": "blueman-manager"
-    },
-    "battery": {
-        "tooltip": false,
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 20
-        },
-        "format": "{icon}  {capacity}%",
-        "format-time": "{H} h {m} min",
-        "format-charging": " {capacity}%",
-        "format-full": " {capacity}%",
-        "format-alt": "{icon}  {time}",
-        "format-icons": [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ]
-    },
-    "wireplumber": {
-        "tooltip": false,
-        "format": "{icon} {volume}%",
-        "format-muted": " {volume}%",
-        "max-volume": 100,
-        "format-icons": [
-            "",
-            "",
-            " "
-        ]
-    },
-    "clock": {
-        "tooltip": false,
-        "timezone": "Europe/Paris",
-        "format": "  {:%a %d/%m/%Y    %H:%M}",
-        "on-click": "gnome-calendar"
-    }
+    "format": "{icon}  {capacity}%",
+    "format-time": "{H} h {m} min",
+    "format-charging": " {capacity}%",
+    "format-full": " {capacity}%",
+    "format-alt": "{icon}  {time}",
+    "format-icons": ["", "", "", "", ""],
+  },
+  "wireplumber": {
+    "tooltip": false,
+    "format": "{icon} {volume}%",
+    "format-muted": " {volume}%",
+    "max-volume": 100,
+    "format-icons": ["", "", " "],
+  },
+  "clock": {
+    "tooltip": false,
+    "timezone": "Europe/Paris",
+    "format": "  {:%a %d/%m/%Y    %H:%M}",
+    "on-click": "gnome-calendar",
+  },
 }
