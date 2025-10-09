@@ -15,6 +15,15 @@ setopt SHARE_HISTORY
 
 # Emacs binds
 bindkey -e
+bindkey "\e[3~" delete-char # Delete
+bindkey "\e[1;5C" forward-word # Ctrl+Right
+bindkey "\e[1;5D" backward-word # Ctrl+Left
+bindkey "\e[1;2C" forward-char # Shift+Right
+bindkey "\e[1;2D" backward-char # Shift+Left
+
+# Alt+Flèches
+bindkey "\e[1;3C" forward-word
+bindkey "\e[1;3D" backward-word
 
 # Load Version Control System
 autoload -Uz vcs_info
