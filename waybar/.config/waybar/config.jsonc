@@ -1,5 +1,6 @@
 {
   "layer": "top",
+  "output": ["eDP-1", "DP-1"],
   "spacing": 4,
   "modules-left": ["custom/launcher", "tray"],
   "modules-center": ["hyprland/workspaces"],
@@ -23,10 +24,8 @@
     "icon-size": 16,
   },
   "hyprland/workspaces": {
-    "disable-scroll": true,
-    "persistent-workspaces": {
-      "*": 6,
-    },
+    "all-outputs": true,
+    "show-special": true,
   },
   "cpu": {
     "tooltip": false,
@@ -37,6 +36,7 @@
     "format": " {}%",
   },
   "temperature": {
+    "hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input",
     "tooltip": false,
     "critical-threshold": 80,
     "format": "{icon} {temperatureC}°C",
