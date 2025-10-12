@@ -13,6 +13,8 @@ sudo pacman -S git stow zsh
 
 # Clone the repo with submodules in your home directory
 git clone --recurse-submodules https://github.com/Dowdow/dowfiles.git
+# If you forgot the --recurse-submodules option
+git submodule update --init
 
 # Install the config with symlinks
 cd dowfiles
@@ -24,87 +26,51 @@ chsh -s $(which zsh)
 
 # Restart your terminal
 ```
-## Arch
-
-Arch configuration for hyprland usage
-
-### Packages
-
-For the list of Arch packages, see `install_arch.sh` script.
-
-### UI Config
-
-Use `nwg-look` or `GTK Settings` with wofi to set prefer dark mode and set `JetBrains Mono Nerd Regular` as default font.
-
-### Nvidia config
-
-[Arch Nvidia](https://wiki.archlinux.org/title/NVIDIA)
-
-[Hyprland Nvidia](https://wiki.hyprland.org/Nvidia/)
-
-```bash
-# Nvidia packages
-sudo pacman -S libva-nvidia-driver linux-headers nvidia-dkms
-
-# Automatic KMS late loading (maybe need reboot)
-modprobe nvidia_drm modeset=1
-cat /sys/module/nvidia_drm/parameters/modeset # Should return Y
-
-# Grub config
-sudo nano /etc/default/grub
-# GRUB_CMDLINE_LINUX_DEFAULT=" ... nvidia_drm.modeset=1"
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
-# Systemdboot config
-sudo nano /boot/loader/entries/arch.conf
-# nvidia_drm.modeset=1
-
-# Mkinitcpio config
-sudo nano /etc/mkinitcpio.conf
-# MODULES=( ... nvidia nvidia_modeset nvidia_uvm nvidia_drm)
-sudo mkinitcpio -P
-
-# Power management
-sudo systemctl enable nvidia-suspend.service
-sudo systemctl enable nvidia-hibernate.service
-sudo systemctl enable nvidia-resume.service
-modprobe nvidia NVreg_PreserveVideoMemoryAllocations=1
-```
-
-## Zsh
 
 ### Custom zsh config
 
 The custom config can be added in `zsh/.config/zsh/custom` and will be ignored by git.
 
-### Windows Terminal (WSL) Theme
+## Arch
 
-Color theme to add as Json under the `"schemes":` array.
+Arch configuration for hyprland usage.
 
-![Windows Terminal](https://github.com/Dowdow/dowfiles/blob/main/terminal-windows.png?raw=true)
+### Packages
 
-```json
-{
-  "background": "#0D101B",
-  "black": "#000009",
-  "blue": "#58B6CA",
-  "brightBlack": "#1F222D",
-  "brightBlue": "#8BE9FD",
-  "brightCyan": "#C0B7F9",
-  "brightGreen": "#A5FFE1",
-  "brightPurple": "#97BBF7",
-  "brightRed": "#EE829F",
-  "brightWhite": "#FFFFFF",
-  "brightYellow": "#F99170",
-  "cursorColor": "#EBEEF9",
-  "cyan": "#8D84C6",
-  "foreground": "#EBEEF9",
-  "green": "#72CCAE",
-  "name": "Dowdow Theme",
-  "purple": "#6488C4",
-  "red": "#BB4F6C",
-  "selectionBackground": "#FFFFFF",
-  "white": "#858893",
-  "yellow": "#C65E3D"
-}
+#### System
+
+```bash
+sudo pacman -S bat brightnessctl dunst fzf git grim hypridle hyprland hyprlock hyprpaper man nano noto-fonts-emoji nwg-look openssh otf-font-awesome pipewire qt5-wayland qt6-wayland slurp ttf-jetbrains-mono-nerd waybar wayland wireplumber wofi xdg-desktop-portal-hyprland
 ```
+
+#### Nvidia
+
+Documentation: [Arch Nvidia](https://wiki.archlinux.org/title/NVIDIA) and [Hyprland Nvidia](https://wiki.hyprland.org/Nvidia/).
+
+```bash
+sudo pacman -S linux-headers nvidia-dkms libva-nvidia-driver
+```
+
+#### Applications
+```bash
+sudo pacman -S alacritty discord firefox gnome-calculator gnome-calendar nautilus neovim
+```
+
+#### Bluetooth
+```bash
+sudo pacman blueman bluez
+sudo systemctl enable bluetooth.service blueman-mechanism.service
+```
+
+### Hyprland config
+
+```bash
+# Desktop
+ln -s ~/.config/hypr/hyprland/desktop.conf ~/.config/hypr/hyprland.conf
+# Laptop
+ln -s ~/.config/hypr/hyprland/laptop.conf ~/.config/hypr/hyprland.conf
+```
+
+### UI Config
+
+Use `nwg-look` or `GTK Settings` with wofi to set prefer dark mode and set `JetBrains Mono Nerd Regular` as default font.
