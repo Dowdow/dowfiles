@@ -10,7 +10,7 @@
     color: @text;
 }
 
-.modules-left {
+.modules-left .module {
     margin: 5px;
     padding: 0 10px;
     background-color: @base;
@@ -35,95 +35,84 @@
     transition: none;
 }
 
-/** Custom launcher **/
+.modules-right .module {
+    padding: 0 10px;
+}
 
 #custom-launcher {
     font-size: 18px;
-    transition: none;
 }
 
-/** Tray **/
+#custom-pacman {
+    color: @peach;
+}
+
+#custom-spotify {
+    color: @green;
+}
+#custom-spotify.paused {
+    color: @text;
+}
 
 #tray {
-    margin-left: 15px;
+    margin: 5px;
+    padding: 0 10px;
+    background-color: @base;
+    border-radius: 0.5rem;
+    border: 1px solid @surface0;
     transition: none;
 }
-
 #tray menu {
     font-size: 16px;
     background-color: @surface0;
     color: @text;
 }
 
-/** Workspaces **/
-
 #workspaces {
     transition: none;
 }
-
 #workspaces button {
     padding: 0 5px;
     margin: 6px;
 }
-
 #workspaces button.active {
     background-color: @lavender;
     color: @crust;
     border-radius: 1rem;
 }
 
-/** CPU **/
-
 #cpu {
     color: @red;
-    padding: 0 10px;
 }
-
-/** Memory **/
 
 #memory {
     color: @peach;
-    padding: 0 10px;
 }
-
-/** Temperature **/
 
 #temperature {
     color: @teal;
-    padding: 0 10px;
 }
 
-/** Network **/
+#custom-nvidia {
+    color: @green;
+}
 
 #network {
     color: @sky;
-    padding: 0 10px;
 }
-
-/** Bluetooth **/
 
 #bluetooth {
     color: @sapphire;
-    padding: 0 10px;
 }
-
-/** Battery **/
 
 #battery {
     color: #97bbf7;
-    padding: 0 10px;
 }
-
-/** Audio **/
 
 #wireplumber {
     color: @blue;
-    padding: 0 10px;
 }
-
-/** Clock **/
 
 #clock {
     color: @text;
-    padding: 0 10px;
 }
