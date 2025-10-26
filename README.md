@@ -74,3 +74,13 @@ ln -s ~/.config/hypr/hyprland/laptop.conf ~/.config/hypr/hyprland.conf
 ### UI Config
 
 Use `nwg-look` or `GTK Settings` with wofi to set prefer dark mode and set `JetBrains Mono Nerd Regular` as default font.
+
+### Splash screen
+
+Add `quiet splash` at the end of the `/etc/kernet/cmdline` file.
+
+Copy splash file to `/efi/loader/splash.bmp` or `/boot/loader/splash.bmp`.
+
+Edit the `/etc/mkinitcpio.d/linux.preset` file, and change the default splash path in the options : `default_options="--splash /efi/loader/splash.bmp"`
+
+Run `sudo mkinitcpio -P`.
