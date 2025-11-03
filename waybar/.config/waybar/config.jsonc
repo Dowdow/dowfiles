@@ -4,6 +4,7 @@
   "spacing": 4,
   "modules-left": [
     "custom/launcher",
+    "hyprland/language",
     "tray",
     "custom/pacman",
     "custom/spotify",
@@ -45,6 +46,12 @@
     "on-click": "playerctl -p spotify play-pause",
     "exec": "~/.config/waybar/player.sh spotify 2> /dev/null",
     "exec-if": "pgrep spotify",
+  },
+  "hyprland/language": {
+    "format": "  {}",
+    "format-en": "EN",
+    "format-fr": "FR",
+    "on-click": "hyprctl switchxkblayout all next",
   },
   "tray": {
     "spacing": 10,
