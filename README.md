@@ -40,7 +40,7 @@ Arch configuration for hyprland usage.
 #### System
 
 ```bash
-sudo pacman -S bat brightnessctl dunst fzf git grim hypridle hyprland hyprlock hyprpaper man nano noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nwg-look openssh otf-font-awesome pacman-contrib pipewire qt5-wayland qt6-wayland slurp ttf-jetbrains-mono-nerd waybar wayland wireplumber wofi xdg-desktop-portal-hyprland
+sudo pacman -S bat brightnessctl dunst fzf git grim hypridle hyprland hyprlock hyprpaper jq man nano noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nwg-look openssh otf-font-awesome pacman-contrib pipewire qt5-wayland qt6-wayland slurp ttf-jetbrains-mono-nerd waybar wayland wireplumber wl-clipboard wofi xdg-desktop-portal-hyprland zenity
 # Reload font cache
 fc-cache -fv
 ```

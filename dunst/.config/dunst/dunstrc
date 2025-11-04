@@ -1,4 +1,10 @@
 [global]
+follow = keyboard
+font = JetBrainsMono Nerd Font Regular 11
+padding = 10
+horizontal_padding = 10
+gap_size = 10
+offset = (10, 10)
 frame_color = "#45475a"
 frame_width = 1
 corner_radius = 3
