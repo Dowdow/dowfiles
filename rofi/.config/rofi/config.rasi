@@ -1,0 +1,134 @@
+configuration {
+    modes: [window,drun];
+	font: "JetBrainsMono Nerd Font Regular 11";
+	show-icons: true;
+	terminal: "alacritty";
+	sort: true;
+	sorting-method: "fzf";
+	drun-show-actions: true;
+	display-window: "Windows";
+	display-drun: "Applications";
+	window-format: "{c} {t}";
+}
+
+@theme "/dev/null"
+
+* {
+  font:   "JetBrainsMono Nerd Font Regular 12";
+
+  rosewater:#f5e0dc;
+  flamingo: #f2cdcd;
+  pink:     #f5c2e7;
+  mauve:    #cba6f7;
+  red:      #f38ba8;
+  maroon:   #eba0ac;
+  peach:    #fab387;
+  yellow:   #f9e2af;
+  green:    #a6e3a1;
+  teal:     #94e2d5;
+  sky:      #89dceb;
+  sapphire: #74c7ec;
+  blue:     #89b4fa;
+  lavender: #b4befe;
+  text:     #cdd6f4;
+  subtext1: #bac2de;
+  subtext0: #a6adc8;
+  overlay2: #9399b2;
+  overlay1: #7f849c;
+  overlay0: #6c7086;
+  surface2: #585b70;
+  surface1: #45475a;
+  surface0: #313244;
+  base:     #1e1e2e;
+  mantle:   #181825;
+  crust:    #11111b;
+
+  accent: @surface1;
+  urgent: @red;
+
+  background-color : transparent;
+  text-color       : @text;
+
+  margin  : 0;
+  padding : 0;
+  spacing : 0;
+}
+
+window {
+  location : center;
+  width    : 500px;
+
+  background-color: @base;
+  border: 1px;
+  border-color: @lavender;
+  border-radius: 6px;
+}
+
+inputbar {
+  spacing  : 8px;
+  padding  : 4px 8px;
+
+  background-color: @surface0;
+}
+
+entry, element-icon, element-text {
+  vertical-align: 0.5;
+}
+
+textbox {
+  padding          : 4px 8px;
+  background-color : @surface0;
+}
+
+listview {
+  padding      : 4px 0px;
+  lines        : 12;
+  columns      : 1;
+  scrollbar    : true;
+  fixed-height : false;
+  dynamic      : false;
+}
+
+element {
+  padding : 4px 8px;
+  spacing : 8px;
+}
+
+element-icon, element-text, scrollbar {
+  cursor: pointer;
+}
+
+element normal urgent {
+  text-color: @red;
+}
+
+element normal active {
+  text-color: @accent;
+}
+
+element alternate active {
+  text-color: @accent;
+}
+
+element selected {
+  text-color       : @text;
+  background-color : @accent;
+}
+
+element selected urgent {
+  background-color: @urgent;
+}
+
+element-icon {
+  size: 0.8em;
+}
+
+element-text {
+  text-color: inherit;
+}
+
+scrollbar {
+  handle-width : 4px;
+  handle-color : @surface2;
+  padding      : 0 4px;
+}

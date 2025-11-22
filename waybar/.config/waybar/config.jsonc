@@ -24,7 +24,7 @@
   "custom/launcher": {
     "format": "🦆",
     "tooltip": false,
-    "on-click": "if pgrep wofi > /dev/null; then killall wofi; else ~/.config/wofi/powermenu.sh; fi",
+    "on-click": "if pgrep rofi > /dev/null; then killall rofi; else ~/.config/rofi/powermenu.sh; fi",
   },
   "custom/pacman": {
     "format": "  {}",
