@@ -150,10 +150,10 @@ binds {
     Mod+Shift+KP_Subtract { set-window-height "-10%"; }
 
     // Focus
-    Mod+Left { focus-column-left; }
-    Mod+Right { focus-column-right; }
-    Mod+Shift+WheelScrollDown { focus-column-right; }
-    Mod+Shift+WheelScrollUp   { focus-column-left; }
+    Mod+Left { spawn-sh "~/.config/niri/scripts/focus.sh focus-column-left"; }
+    Mod+Right { spawn-sh "~/.config/niri/scripts/focus.sh focus-column-right"; }
+    Mod+Shift+WheelScrollUp   { spawn-sh "~/.config/niri/scripts/focus.sh focus-column-left"; }
+    Mod+Shift+WheelScrollDown { spawn-sh "~/.config/niri/scripts/focus.sh focus-column-right"; }
 
     // Workspace
     Mod+Up { focus-workspace-up; }
