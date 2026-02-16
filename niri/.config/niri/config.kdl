@@ -1,0 +1,192 @@
+// https://niri-wm.github.io/niri/Configuration:-Introduction
+prefer-no-csd
+screenshot-path "~/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+spawn-sh-at-startup "swaybg -i ~/.config/niri/wallpaper.png -m fill"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+// https://niri-wm.github.io/niri/Configuration:-Outputs
+output "DP-1" {
+    mode "1920x1080@144"
+    scale 1
+    transform "normal"
+    position x=0 y=0
+}
+
+output "HDMI-A-2" {
+    mode "1920x1080@60"
+    scale 1
+    transform "normal"
+    position x=1920 y=0
+}
+
+// https://niri-wm.github.io/niri/Configuration:-Input
+input {
+    keyboard {
+        xkb {
+            layout "fr"
+        }
+        numlock
+    }
+
+    mouse {
+        accel-speed 0.3
+        accel-profile "flat"
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+    }
+}
+
+// https://niri-wm.github.io/niri/Configuration:-Layout
+layout {
+    gaps 5
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    preset-window-heights {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        off
+    }
+
+    border {
+        on
+        width 1
+        active-color "#b4befeaf"
+        inactive-color "#313244"
+        urgent-color "#f38ba8"
+    }
+
+    shadow {
+        off
+    }
+}
+
+// https://niri-wm.github.io/niri/Configuration:-Miscellaneous.html
+overview {
+    backdrop-color "#11111b"
+}
+
+// https://niri-wm.github.io/niri/Configuration:-Animations
+animations {
+    on
+}
+
+// https://niri-wm.github.io/niri/Configuration:-Gestures.html
+gestures {
+    hot-corners {
+       off
+    }
+}
+
+// https://niri-wm.github.io/niri/Configuration:-Window-Rules
+window-rule {
+    geometry-corner-radius 5
+    clip-to-geometry true
+}
+
+// https://niri-wm.github.io/niri/Configuration:-Key-Bindings.html
+binds {
+    Mod+Escape { quit; }
+
+    // Shows a list of important hotkeys.
+    Mod+Shift+O { show-hotkey-overlay; }
+
+    // Applications
+    Mod+A repeat=false hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
+    Mod+Space repeat=false hotkey-overlay-title="Run an Application: rofi" { spawn-sh "if pgrep rofi > /dev/null; then killall rofi; else rofi -show drun; fi"; }
+    Mod+E repeat=false hotkey-overlay-title="Open File Manager: nautilus" { spawn "nautilus"; }
+
+    // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+
+    // Volume keys mappings for PipeWire & WirePlumber.
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    // Media keys mapping using playerctl.
+    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    // Brightness key mappings for brightnessctl.
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+
+    Mod+Z repeat=false { toggle-overview; }
+    Mod+Q repeat=false { close-window; }
+
+    // Sizing
+    Mod+M { maximize-window-to-edges; }
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Ctrl+F { expand-column-to-available-width; }
+    Mod+C { center-column; }
+    Mod+Ctrl+C { center-visible-columns; }
+    Mod+KP_Add { set-column-width "+10%"; }
+    Mod+KP_Subtract { set-column-width "-10%"; }
+    Mod+Shift+KP_Add { set-window-height "+10%"; }
+    Mod+Shift+KP_Subtract { set-window-height "-10%"; }
+
+    // Focus
+    Mod+Left { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Shift+WheelScrollDown { focus-column-right; }
+    Mod+Shift+WheelScrollUp   { focus-column-left; }
+
+    // Workspace
+    Mod+Up { focus-workspace-up; }
+    Mod+Down { focus-workspace-down; }
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+
+    // Monitor
+    Mod+Shift+Left { focus-monitor-left; }
+    Mod+Shift+Right { focus-monitor-right; }
+
+    // Move window
+    Mod+Ctrl+Left { move-window-to-monitor-left; }
+    Mod+Ctrl+Right { move-window-to-monitor-right; }
+    Mod+Ctrl+Up   { move-window-to-workspace-up; }
+    Mod+Ctrl+Down { move-window-to-workspace-down; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-window-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { move-window-to-workspace-up; }
+
+    // Move column
+    Mod+Alt+Left { move-column-left; }
+    Mod+Alt+Right { move-column-right; }
+
+    // Floating
+    Mod+V       { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+    // Screenshot
+    Print { screenshot; }
+    Ctrl+Print { screenshot-screen write-to-disk=false; }
+    Alt+Print { screenshot-window write-to-disk=false; }
+
+    // Powers off the monitors. To turn them back on, do any input like
+    // moving the mouse or pressing any other key.
+    Mod+Shift+P { power-off-monitors; }
+}

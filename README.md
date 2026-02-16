@@ -8,8 +8,8 @@ This repo contains all my dot files
 
 ```bash
 # Install dependencies
+sudo pacman -Sy --needed git stow zsh
 sudo apt install -y git stow zsh
-sudo pacman -S git stow zsh
 
 # Clone the repo with submodules in your home directory
 git clone --recurse-submodules https://github.com/Dowdow/dowfiles.git
@@ -40,7 +40,7 @@ Arch configuration for hyprland usage.
 #### System
 
 ```bash
-sudo pacman -S bat brightnessctl dunst fzf git grim hypridle hyprland hyprlock hyprpaper jq man nano noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nwg-look openssh otf-font-awesome pacman-contrib pipewire qt5-wayland qt6-wayland rofi slurp ttf-jetbrains-mono-nerd waybar wayland wireplumber wl-clipboard xdg-desktop-portal-hyprland zenity
+sudo pacman -Sy --needed bat brightnessctl dunst fzf git gnome-keyring grim hypridle hyprland hyprlock hyprpaper jq man nano niri noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nwg-look openssh otf-font-awesome pacman-contrib pipewire qt5-wayland qt6-wayland rofi slurp swaybg ttf-jetbrains-mono-nerd waybar wayland wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-gnome xdg-desktop-portal-hyprland xwayland-satellite zenity
 # Reload font cache
 fc-cache -fv
 ```
@@ -50,17 +50,17 @@ fc-cache -fv
 Documentation: [Arch Nvidia](https://wiki.archlinux.org/title/NVIDIA) and [Hyprland Nvidia](https://wiki.hyprland.org/Nvidia/).
 
 ```bash
-sudo pacman -S linux-headers nvidia-dkms libva-nvidia-driver
+sudo pacman -Sy --needed linux-headers nvidia-dkms libva-nvidia-driver
 ```
 
 #### Applications
 ```bash
-sudo pacman -S alacritty discord firefox gnome-calculator gnome-calendar nautilus neovim
+sudo pacman -Sy --needed alacritty discord firefox gnome-calculator gnome-calendar nautilus neovim
 ```
 
 #### Bluetooth
 ```bash
-sudo pacman blueman bluez
+sudo pacman -Sy --needed blueman bluez
 sudo systemctl enable bluetooth.service blueman-mechanism.service
 ```
 
