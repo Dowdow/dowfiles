@@ -5,11 +5,12 @@
   "modules-left": [
     "custom/launcher",
     "hyprland/language",
+    "niri/language",
     "tray",
     "custom/pacman",
     "custom/spotify",
   ],
-  "modules-center": ["hyprland/workspaces"],
+  "modules-center": ["hyprland/workspaces", "niri/workspaces"],
   "modules-right": [
     "cpu",
     "memory",
@@ -53,6 +54,11 @@
     "format-fr": "FR",
     "on-click": "hyprctl switchxkblayout all next",
   },
+  "niri/language": {
+    "format": "  {}",
+    "format-en": "EN",
+    "format-fr": "FR",
+  },
   "tray": {
     "spacing": 10,
     "icon-size": 16,
@@ -60,6 +66,9 @@
   "hyprland/workspaces": {
     "all-outputs": true,
     "show-special": true,
+  },
+  "niri/workspaces": {
+    "all-outputs": true,
   },
   "cpu": {
     "tooltip": false,

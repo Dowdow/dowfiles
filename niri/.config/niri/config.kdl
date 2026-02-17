@@ -26,9 +26,10 @@ output "HDMI-A-2" {
 input {
     keyboard {
         xkb {
-            layout "fr"
+            layout "fr,en"
         }
         numlock
+        track-layout "global"
     }
 
     mouse {
