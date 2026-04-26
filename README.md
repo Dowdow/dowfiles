@@ -55,7 +55,7 @@ sudo pacman -Sy --needed linux-headers nvidia-dkms libva-nvidia-driver
 
 #### Applications
 ```bash
-sudo pacman -Sy --needed alacritty discord firefox gnome-calculator gnome-calendar nautilus neovim
+sudo pacman -Sy --needed alacritty discord firefox gnome-calculator gnome-calendar nautilus
 ```
 
 #### Bluetooth

@@ -7,18 +7,37 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "base_keymap": "JetBrains",
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "buffer_font_features": {
+    "calt": true,
+  },
+  "buffer_font_size": 15,
   "disable_ai": true,
   "icon_theme": "Catppuccin Mocha",
-  "base_keymap": "JetBrains",
-  "ui_font_size": 16,
-  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
-  "buffer_font_size": 15,
-  "buffer_font_features": {
-    "calt": true
-  },
+  "soft_wrap": "editor_width",
   "theme": {
     "mode": "system",
     "light": "Catppuccin Mocha",
-    "dark": "Catppuccin Mocha"
-  }
+    "dark": "Catppuccin Mocha",
+  },
+  "ui_font_size": 16,
+  // Panels
+  "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": [],
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "git_panel": {
+    "dock": "left",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "project_panel": {
+    "dock": "left",
+  },
 }
