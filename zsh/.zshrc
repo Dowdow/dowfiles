@@ -21,7 +21,7 @@ bindkey "\e[1;5D" backward-word # Ctrl+Left
 bindkey "\e[1;2C" forward-char # Shift+Right
 bindkey "\e[1;2D" backward-char # Shift+Left
 
-# Alt+Flèches
+# Alt+Arrows
 bindkey "\e[1;3C" forward-word
 bindkey "\e[1;3D" backward-word
 
@@ -49,14 +49,6 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # Prompt
 setopt PROMPT_SUBST
 PROMPT='%F{blue}%~%f %F{red}${vcs_info_msg_0_}%f$ '
-
-# Symfony autocomplete
-source ~/.config/zsh/plugins/symfony-complete.plugin.zsh/symfony-complete.plugin.zsh
-compdef _symfony_complete symfony
-# compdef _symfony_complete composer
-compdef _symfony_complete console
-compdef _symfony_complete phpstan
-compdef _symfony_complete php-cs-fixer
 
 # Npm completions
 source ~/.config/zsh/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh

@@ -10,9 +10,6 @@
 [submodule ".zsh/plugins/zsh-syntax-highlighting"]
 	path = zsh/.config/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule ".zsh/plugins/symfony-complete.plugin.zsh"]
-	path = zsh/.config/zsh/plugins/symfony-complete.plugin.zsh
-	url = https://github.com/voronkovich/symfony-complete.plugin.zsh
 [submodule ".zsh/plugins/zsh-better-npm-completion"]
 	path = zsh/.config/zsh/plugins/zsh-better-npm-completion
 	url = https://github.com/lukechilds/zsh-better-npm-completion.git
