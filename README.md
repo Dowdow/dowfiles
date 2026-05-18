@@ -8,42 +8,29 @@ This repo contains all my dot files
 
 ```bash
 # Install dependencies
-sudo pacman -Sy --needed git stow zsh
-sudo apt install -y git stow zsh
+sudo pacman -Sy --needed git
 
 # Clone the repo with submodules in your home directory
 git clone --recurse-submodules https://github.com/Dowdow/dowfiles.git
 # If you forgot the --recurse-submodules option
 git submodule update --init
 
+# Use the script to install WSL or native
+./dowfiles/dowfiles.sh
+```
+
+### Stow
+
+```bash
 # Install the config with symlinks
 cd dowfiles
 stow */ # to link everything
 stow git zsh # to use only git and zsh
-
-# Make zsh as default shell
-chsh -s $(which zsh)
-
-# Restart your terminal
 ```
 
 ### Custom zsh config
 
 The custom config can be added in `zsh/.config/zsh/custom` and will be ignored by git.
-
-## Arch
-
-Arch configuration for hyprland usage.
-
-### Packages
-
-#### System
-
-```bash
-sudo pacman -Sy --needed bat brightnessctl dunst fzf git gnome-keyring grim hypridle hyprland hyprlock hyprpaper jq man nano niri noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nwg-look openssh otf-font-awesome pacman-contrib pipewire qt5-wayland qt6-wayland rofi slurp swaybg ttf-jetbrains-mono-nerd waybar wayland wireplumber wl-clipboard xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-gnome xdg-desktop-portal-hyprland xwayland-satellite zenity
-# Reload font cache
-fc-cache -fv
-```
 
 #### Nvidia
 
@@ -51,11 +38,6 @@ Documentation: [Arch Nvidia](https://wiki.archlinux.org/title/NVIDIA) and [Hyprl
 
 ```bash
 sudo pacman -Sy --needed linux-headers nvidia-dkms libva-nvidia-driver
-```
-
-#### Applications
-```bash
-sudo pacman -Sy --needed alacritty discord firefox gnome-calculator gnome-calendar nautilus
 ```
 
 #### Bluetooth

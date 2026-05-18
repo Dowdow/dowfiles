@@ -1,0 +1,6 @@
+alacritty
+discord
+firefox
+gnome-calculator
+gnome-calendar
+nautilus

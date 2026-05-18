@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+alias dowfiles="$HOME/dowfiles/dowfiles.sh"
+
 alias ls="ls --color=auto"
 alias ll="ls -lahF"
 

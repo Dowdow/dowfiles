@@ -1,0 +1,10 @@
+bat
+fzf
+git
+jq
+man
+nano
+openssh
+pacman-contrib
+stow
+zsh
