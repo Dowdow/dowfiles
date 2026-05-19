@@ -12,6 +12,22 @@ NC='\033[0m'
 IS_WSL=false
 [[ $(grep -Ei "(Microsoft|WSL)" /proc/version) ]] && IS_WSL=true
 
+hook_config() {
+    echo -ne "  ${BLUE}.config:${NC} "
+
+    if [ ! -e "$HOME/.config" ]; then
+        mkdir -p "$HOME/.config"
+        echo -e "${GREEN}Created${NC}"
+        return 0
+    fi
+
+    if [ ! -d "$HOME/.config" ]; then
+        echo -ne "${RED}Is not a directory${NC}"
+    else
+        echo -e "${GREEN}OK${NC}"
+    fi
+}
+
 hook_fonts() {
     if [[ "$IS_WSL" == false ]];then
         echo -ne "  ${BLUE}fonts:${NC} "
@@ -39,6 +55,44 @@ hook_ly() {
     fi
 }
 
+hook_waybar() {
+    if pacman -Qi waybar > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}waybar:${NC} "
+
+        # Service
+        if systemctl --user is-enabled waybar.service >/dev/null 2>&1; then
+            echo -ne "${GREEN}Enabled${NC}"
+        else
+            echo -ne "${YELLOW}Enabling...${NC}"
+            systemctl --user enable waybar.service
+            echo -ne "${GREEN}OK${NC}"
+        fi
+
+        # Stow
+        if [ ! -L "$HOME/.config/waybar" ]; then
+            echo -ne " - ${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow waybar
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e " - ${GREEN}Stow OK${NC}"
+        fi
+    fi
+}
+
+hook_wayland() {
+    if pacman -Qi wayland > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}wayland:${NC} "
+
+        if [ ! -L "$HOME/.config/electron-flags.conf" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow wayland
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e "${GREEN}Stow OK${NC}"
+        fi
+    fi
+}
+
 hook_zsh() {
     if pacman -Qi zsh > /dev/null 2>&1; then
         echo -ne "  ${BLUE}zsh:${NC} "
@@ -58,21 +112,32 @@ hook_zsh() {
             fi
         fi
 
-        # Stow zsh
+        # Stow
         if [ ! -L "$HOME/.zshrc" ]; then
             echo -ne " - ${YELLOW}Stowing...${NC}"
             cd "$DOTFILES_DIR" && stow zsh
-            echo -e "${GREEN}OK${NC}"
+            echo -ne "${GREEN}OK${NC}"
         else
-            echo -e " - ${GREEN}Stow OK${NC}"
+            echo -ne " - ${GREEN}Stow OK${NC}"
+        fi
+
+        # Welcome
+        if [ ! -L "$HOME/.config/zsh/custom/welcome.zsh" ]; then
+            ln -s "$HOME/.config/zsh/welcome.zsh" "$HOME/.config/zsh/custom/welcome.zsh"
+            echo -e " - ${GREEN}Welcome Created${NC}"
+        else
+            echo -e " - ${GREEN}Welcome OK${NC}"
         fi
     fi
 }
 
 run_all_hooks() {
     echo -e "${BLUE}Check configurations${NC}"
+    hook_config # Must be first
     hook_fonts
     hook_ly
+    hook_wayland
+    hook_waybar
     hook_zsh
 }
 
