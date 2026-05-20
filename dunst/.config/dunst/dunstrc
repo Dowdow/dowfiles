@@ -23,3 +23,9 @@ foreground = "#cdd6f4"
 background = "#313244"
 foreground = "#cdd6f4"
 frame_color = "#f38ba8"
+
+[volume]
+category = "volume"
+alignment = center
+timeout = 1
+history_ignore = true

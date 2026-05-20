@@ -124,9 +124,9 @@ binds {
     // Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Volume keys mappings for PipeWire & WirePlumber.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "~/.config/dunst/volume.sh" "up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "~/.config/dunst/volume.sh" "down"; }
+    XF86AudioMute        allow-when-locked=true { spawn "~/.config/dunst/volume.sh" "mute"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
     // Media keys mapping using playerctl.
