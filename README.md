@@ -46,15 +46,6 @@ sudo pacman -Sy --needed blueman bluez
 sudo systemctl enable bluetooth.service blueman-mechanism.service
 ```
 
-### Hyprland config
-
-```bash
-# Desktop
-ln -s ~/.config/hypr/hyprland/desktop.conf ~/.config/hypr/hyprland.conf
-# Laptop
-ln -s ~/.config/hypr/hyprland/laptop.conf ~/.config/hypr/hyprland.conf
-```
-
 ### UI Config
 
 Use `nwg-look` or `GTK Settings` with rofi to set prefer dark mode and set `JetBrainsMono Nerd Regular` as default font.

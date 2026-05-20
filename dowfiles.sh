@@ -28,6 +28,48 @@ hook_config() {
     fi
 }
 
+hook_alacritty() {
+    if pacman -Qi alacritty > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}alacritty:${NC} "
+
+        if [ ! -L "$HOME/.config/alacritty" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow alacritty
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e "${GREEN}Stow OK${NC}"
+        fi
+    fi
+}
+
+hook_bat() {
+    if pacman -Qi bat > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}bat:${NC} "
+
+        if [ ! -L "$HOME/.config/bat" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow bat
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e "${GREEN}Stow OK${NC}"
+        fi
+    fi
+}
+
+hook_dunst() {
+    if pacman -Qi dunst > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}dunst:${NC} "
+
+        if [ ! -L "$HOME/.config/dunst" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow dunst
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e "${GREEN}Stow OK${NC}"
+        fi
+    fi
+}
+
 hook_fonts() {
     if [[ "$IS_WSL" == false ]];then
         echo -ne "  ${BLUE}fonts:${NC} "
@@ -35,6 +77,49 @@ hook_fonts() {
             echo -e "${GREEN}OK${NC}"
         else
             echo -ne "${RED}KO${NC}"
+        fi
+    fi
+}
+
+hook_git() {
+    if pacman -Qi git > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}git:${NC} "
+
+        if [ ! -L "$HOME/.gitconfig" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow git
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e "${GREEN}Stow OK${NC}"
+        fi
+    fi
+}
+
+hook_hyprland() {
+    if pacman -Qi hyprland > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}hyprland:${NC} "
+
+        if [ ! -L "$HOME/.config/hypr" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow hyprland
+            echo -ne "${GREEN}OK${NC}"
+
+            read -r -p "Desktop/Laptop usage ? (d/l):" system
+            case $system in
+                [Dd]*)
+                    ln -s ~/.config/hypr/hyprland/desktop.conf ~/.config/hypr/hyprland.conf
+                    echo -e "${GREEN}Desktop OK${NC}"
+                ;;
+                [Ll]*)
+                    ln -s ~/.config/hypr/hyprland/laptop.conf ~/.config/hypr/hyprland.conf
+                    echo -e "${GREEN}Laptop OK${NC}"
+                ;;
+                *)
+                    echo -e "${YELLOW}No usage${NC}"
+                ;;
+            esac
+        else
+            echo -e "${GREEN}Stow OK${NC}"
         fi
     fi
 }
@@ -51,6 +136,34 @@ hook_ly() {
             sudo systemctl disable getty@tty1.service
             sudo systemctl enable ly@tty1.service
             echo -e "${GREEN}OK${NC}"
+        fi
+    fi
+}
+
+hook_niri() {
+    if pacman -Qi niri > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}niri:${NC} "
+
+        if [ ! -L "$HOME/.config/niri" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow niri
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e "${GREEN}Stow OK${NC}"
+        fi
+    fi
+}
+
+hook_rofi() {
+    if pacman -Qi rofi > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}rofi:${NC} "
+
+        if [ ! -L "$HOME/.config/rofi" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow rofi
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e "${GREEN}Stow OK${NC}"
         fi
     fi
 }
@@ -83,9 +196,33 @@ hook_wayland() {
     if pacman -Qi wayland > /dev/null 2>&1; then
         echo -ne "  ${BLUE}wayland:${NC} "
 
+        # Stow
         if [ ! -L "$HOME/.config/electron-flags.conf" ]; then
             echo -ne "${YELLOW}Stowing...${NC}"
             cd "$DOTFILES_DIR" && stow wayland
+            echo -ne "${GREEN}OK${NC}"
+        else
+            echo -ne "${GREEN}Stow OK${NC}"
+        fi
+
+        # Stow profile
+        if [ ! -L "$HOME/.profile" ]; then
+            echo -ne " - ${YELLOW}Stowing profile...${NC}"
+            cd "$DOTFILES_DIR" && stow profile
+            echo -e "${GREEN}OK${NC}"
+        else
+            echo -e " - ${GREEN}Stow profile OK${NC}"
+        fi
+    fi
+}
+
+hook_zed() {
+    if pacman -Qi zeditor > /dev/null 2>&1; then
+        echo -ne "  ${BLUE}zed:${NC} "
+
+        if [ ! -L "$HOME/.config/zed" ]; then
+            echo -ne "${YELLOW}Stowing...${NC}"
+            cd "$DOTFILES_DIR" && stow zed
             echo -e "${GREEN}OK${NC}"
         else
             echo -e "${GREEN}Stow OK${NC}"
@@ -134,10 +271,18 @@ hook_zsh() {
 run_all_hooks() {
     echo -e "${BLUE}Check configurations${NC}"
     hook_config # Must be first
+    hook_alacritty
+    hook_bat
+    hook_dunst
     hook_fonts
+    hook_git
+    hook_hyprland
     hook_ly
+    hook_niri
+    hook_rofi
     hook_wayland
     hook_waybar
+    hook_zed
     hook_zsh
 }
 
