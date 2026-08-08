@@ -7,6 +7,23 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "lsp": {
+    "vtsls": {
+      "settings": {
+        "typescript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always"
+          }
+        },
+        "javascript": {
+          "updateImportsOnFileMove": {
+            "enabled": "always"
+          }
+        }
+      },
+      "enable_lsp_tasks": true
+    }
+  },
   "base_keymap": "JetBrains",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_features": {
@@ -32,6 +49,7 @@
     "dock": "left",
   },
   "git_panel": {
+    "tree_view": false,
     "dock": "left",
   },
   "outline_panel": {

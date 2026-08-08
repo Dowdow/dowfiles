@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export PATH="$HOME/.local/bin:$PATH"
+
 fpath=(~/.config/zsh/functions $fpath)
 fpath=(~/.config/zsh/plugins/zsh-completions/src $fpath)
 
