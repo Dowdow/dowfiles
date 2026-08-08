@@ -8,7 +8,7 @@ openssh
 pacman-contrib
 stow
 zsh
-zsh-completions
 zsh-autosuggestions
-zsh-syntax-highlighting
+zsh-completions
 zsh-history-substring-search
+zsh-syntax-highlighting

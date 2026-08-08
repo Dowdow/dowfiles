@@ -1,4 +1,5 @@
 #!/bin/bash
+set -uo pipefail
 
 DOTFILES_DIR="$HOME/dowfiles"
 PKGS_DIR="$DOTFILES_DIR/packages"
@@ -10,346 +11,297 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 IS_WSL=false
-[[ $(grep -Ei "(Microsoft|WSL)" /proc/version) ]] && IS_WSL=true
+grep -Eqi "(Microsoft|WSL)" /proc/version && IS_WSL=true
+
+COLS=$(tput cols 2>/dev/null)
+[[ -z "$COLS" ]] && COLS=80
+
+STOW_APPS=(
+    "alacritty|alacritty|alacritty|$HOME/.config/alacritty"
+    "bat|bat|bat|$HOME/.config/bat"
+    "dunst|dunst|dunst|$HOME/.config/dunst"
+    "git|git|git|$HOME/.gitconfig"
+    "niri|niri|niri|$HOME/.config/niri"
+    "rofi|rofi|rofi|$HOME/.config/rofi"
+    "zed|zeditor|zed|$HOME/.config/zed"
+)
+
+pkg_installed() { pacman -Qi "$1" &>/dev/null; }
+is_stowed() { [[ -L "$1" ]]; }
+do_stow() { (cd "$DOTFILES_DIR" && stow "$1"); }
+
+label() { printf "  %-14s " "$1:"; }
+kv()    { printf "%s=" "$1"; }
+ok()    { printf "%b%s%b\n" "$GREEN" "$1" "$NC"; }
+ko()    { printf "%b%s%b\n" "$RED" "$1" "$NC"; }
+warn()  { printf "%b%s%b\n" "$YELLOW" "$1" "$NC"; }
+okf()   { printf "%b%s%b " "$GREEN" "$1" "$NC"; }
+kof()   { printf "%b%s%b " "$RED" "$1" "$NC"; }
+warnf() { printf "%b%s%b " "$YELLOW" "$1" "$NC"; }
+
+read_pkgs() {
+    local file="$1" pkg
+    [[ -f "$file" ]] || return 0
+    while IFS= read -r pkg || [[ -n "$pkg" ]]; do
+        [[ -z "$pkg" || "$pkg" == \#* ]] && continue
+        printf '%s\n' "$pkg"
+    done < "$file"
+}
+
+list_categories() {
+    local f
+    echo "Categories:"
+    for f in "$PKGS_DIR"/*.txt; do
+        [[ -f "$f" ]] && echo "  - $(basename "$f" .txt)"
+    done
+}
+
+stow_if_missing() {
+    local disp pkg dir marker
+    IFS='|' read -r disp pkg dir marker <<< "$1"
+    pkg_installed "$pkg" || return 0
+
+    label "$disp"
+    if is_stowed "$marker"; then
+        ok "OK"
+    else
+        do_stow "$dir" && ok "stowed" || ko "KO"
+    fi
+}
 
 hook_config() {
-    echo -ne "  ${BLUE}.config:${NC} "
-
-    if [ ! -e "$HOME/.config" ]; then
+    label "config"
+    if [[ ! -e "$HOME/.config" ]]; then
         mkdir -p "$HOME/.config"
-        echo -e "${GREEN}Created${NC}"
+        ok "created"
         return 0
     fi
-
-    if [ ! -d "$HOME/.config" ]; then
-        echo -ne "${RED}Is not a directory${NC}"
+    if [[ ! -d "$HOME/.config" ]]; then
+        ko "not a directory"
     else
-        echo -e "${GREEN}OK${NC}"
-    fi
-}
-
-hook_alacritty() {
-    if pacman -Qi alacritty > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}alacritty:${NC} "
-
-        if [ ! -L "$HOME/.config/alacritty" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow alacritty
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e "${GREEN}Stow OK${NC}"
-        fi
-    fi
-}
-
-hook_bat() {
-    if pacman -Qi bat > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}bat:${NC} "
-
-        if [ ! -L "$HOME/.config/bat" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow bat
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e "${GREEN}Stow OK${NC}"
-        fi
-    fi
-}
-
-hook_dunst() {
-    if pacman -Qi dunst > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}dunst:${NC} "
-
-        if [ ! -L "$HOME/.config/dunst" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow dunst
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e "${GREEN}Stow OK${NC}"
-        fi
+        ok "OK"
     fi
 }
 
 hook_fonts() {
-    if [[ "$IS_WSL" == false ]];then
-        echo -ne "  ${BLUE}fonts:${NC} "
-        if fc-cache -fv >/dev/null 2>&1; then
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -ne "${RED}KO${NC}"
-        fi
-    fi
-}
-
-hook_git() {
-    if pacman -Qi git > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}git:${NC} "
-
-        if [ ! -L "$HOME/.gitconfig" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow git
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e "${GREEN}Stow OK${NC}"
-        fi
-    fi
+    [[ "$IS_WSL" == true ]] && return 0
+    label "fonts"
+    fc-cache -f &>/dev/null && ok "OK" || ko "KO"
 }
 
 hook_hyprland() {
-    if pacman -Qi hyprland > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}hyprland:${NC} "
+    pkg_installed hyprland || return 0
+    label "hyprland"
 
-        if [ ! -L "$HOME/.config/hypr" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow hyprland
-            echo -ne "${GREEN}OK${NC}"
-
-            read -r -p "Desktop/Laptop usage ? (d/l):" system
-            case $system in
-                [Dd]*)
-                    ln -s ~/.config/hypr/hyprland/desktop.conf ~/.config/hypr/hyprland.conf
-                    echo -e "${GREEN}Desktop OK${NC}"
-                ;;
-                [Ll]*)
-                    ln -s ~/.config/hypr/hyprland/laptop.conf ~/.config/hypr/hyprland.conf
-                    echo -e "${GREEN}Laptop OK${NC}"
-                ;;
-                *)
-                    echo -e "${YELLOW}No usage${NC}"
-                ;;
-            esac
-        else
-            echo -e "${GREEN}Stow OK${NC}"
-        fi
+    if is_stowed "$HOME/.config/hypr"; then
+        ok "OK"
+        return 0
     fi
+    if ! do_stow hyprland; then
+        ko "KO"
+        return 1
+    fi
+    okf "stowed"
+
+    read -r -p "desktop/laptop ? (d/l): " system
+    case "$system" in
+        [Dd]*) ln -s ~/.config/hypr/hyprland/desktop.conf ~/.config/hypr/hyprland.conf; ok "desktop" ;;
+        [Ll]*) ln -s ~/.config/hypr/hyprland/laptop.conf ~/.config/hypr/hyprland.conf; ok "laptop" ;;
+        *) warn "skipped" ;;
+    esac
 }
 
 hook_ly() {
-    if pacman -Qi ly > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}ly:${NC} "
+    pkg_installed ly || return 0
+    label "ly"
 
-        if systemctl is-enabled ly@tty1.service >/dev/null 2>&1 && \
-            ! systemctl is-enabled getty@ttyp1.service >/dev/null 2>&1; then
-            echo -e "${GREEN}Enabled${NC}"
-        else
-            echo -e "${YELLOW}Enabling...${NC}"
-            sudo systemctl disable getty@tty1.service
-            sudo systemctl enable ly@tty1.service
-            echo -e "${GREEN}OK${NC}"
-        fi
+    if systemctl is-enabled ly@tty1.service &>/dev/null && ! systemctl is-enabled getty@tty1.service &>/dev/null; then
+        ok "OK"
+        return 0
     fi
-}
 
-hook_niri() {
-    if pacman -Qi niri > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}niri:${NC} "
-
-        if [ ! -L "$HOME/.config/niri" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow niri
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e "${GREEN}Stow OK${NC}"
-        fi
-    fi
-}
-
-hook_rofi() {
-    if pacman -Qi rofi > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}rofi:${NC} "
-
-        if [ ! -L "$HOME/.config/rofi" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow rofi
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e "${GREEN}Stow OK${NC}"
-        fi
+    warnf "needs enable"
+    read -r -p "- disable getty@tty1, enable ly@tty1 ? (y/N): " confirm
+    if [[ "$confirm" =~ ^[Yy]$ ]]; then
+        sudo systemctl disable getty@tty1.service
+        sudo systemctl enable ly@tty1.service
+        ok "OK"
+    else
+        ok "skipped"
     fi
 }
 
 hook_waybar() {
-    if pacman -Qi waybar > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}waybar:${NC} "
+    pkg_installed waybar || return 0
+    label "waybar"
 
-        # Service
-        if systemctl --user is-enabled waybar.service >/dev/null 2>&1; then
-            echo -ne "${GREEN}Enabled${NC}"
-        else
-            echo -ne "${YELLOW}Enabling...${NC}"
-            systemctl --user enable waybar.service
-            echo -ne "${GREEN}OK${NC}"
-        fi
+    kv service
+    if systemctl --user is-enabled waybar.service &>/dev/null; then
+        okf "OK"
+    else
+        systemctl --user enable waybar.service && okf "enabled" || kof "KO"
+    fi
 
-        # Stow
-        if [ ! -L "$HOME/.config/waybar" ]; then
-            echo -ne " - ${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow waybar
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e " - ${GREEN}Stow OK${NC}"
-        fi
+    kv stow
+    if is_stowed "$HOME/.config/waybar"; then
+        ok "OK"
+    else
+        do_stow waybar && ok "stowed" || ko "KO"
     fi
 }
 
 hook_wayland() {
-    if pacman -Qi wayland > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}wayland:${NC} "
+    pkg_installed wayland || return 0
+    label "wayland"
 
-        # Stow
-        if [ ! -L "$HOME/.config/electron-flags.conf" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow wayland
-            echo -ne "${GREEN}OK${NC}"
-        else
-            echo -ne "${GREEN}Stow OK${NC}"
-        fi
-
-        # Stow profile
-        if [ ! -L "$HOME/.profile" ]; then
-            echo -ne " - ${YELLOW}Stowing profile...${NC}"
-            cd "$DOTFILES_DIR" && stow profile
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e " - ${GREEN}Stow profile OK${NC}"
-        fi
+    kv stow
+    if is_stowed "$HOME/.config/electron-flags.conf"; then
+        okf "OK"
+    else
+        do_stow wayland && okf "stowed" || kof "KO"
     fi
-}
 
-hook_zed() {
-    if pacman -Qi zeditor > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}zed:${NC} "
-
-        if [ ! -L "$HOME/.config/zed" ]; then
-            echo -ne "${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow zed
-            echo -e "${GREEN}OK${NC}"
-        else
-            echo -e "${GREEN}Stow OK${NC}"
-        fi
+    kv profile
+    if is_stowed "$HOME/.profile"; then
+        ok "OK"
+    else
+        do_stow profile && ok "stowed" || ko "KO"
     fi
 }
 
 hook_zsh() {
-    if pacman -Qi zsh > /dev/null 2>&1; then
-        echo -ne "  ${BLUE}zsh:${NC} "
+    pkg_installed zsh || return 0
+    label "zsh"
 
-        # Default shell
-        local current_shell=$(getent passwd "$USER" | cut -d: -f7)
-        local zsh_path=/usr/bin/zsh
+    local current_shell zsh_path=/usr/bin/zsh
+    current_shell=$(getent passwd "$USER" | cut -d: -f7)
 
-        if [[ "$current_shell" == "$zsh_path" ]]; then
-            echo -ne "${GREEN}Enabled${NC}"
-        else
-            echo -ne "${YELLOW}Current shell is $current_shell. Enabling..${NC}"
-            if chsh -s "$zsh_path"; then
-                echo -ne "${GREEN}OK${NC}"
-            else
-                echo -ne "${RED}KO${NC}"
-            fi
-        fi
+    kv shell
+    if [[ "$current_shell" == "$zsh_path" ]]; then
+        okf "OK"
+    else
+        chsh -s "$zsh_path" && okf "OK" || kof "KO"
+    fi
 
-        # Stow
-        if [ ! -L "$HOME/.zshrc" ]; then
-            echo -ne " - ${YELLOW}Stowing...${NC}"
-            cd "$DOTFILES_DIR" && stow zsh
-            echo -ne "${GREEN}OK${NC}"
-        else
-            echo -ne " - ${GREEN}Stow OK${NC}"
-        fi
+    kv stow
+    if is_stowed "$HOME/.zshrc"; then
+        okf "OK"
+    else
+        do_stow zsh && okf "stowed" || kof "KO"
+    fi
 
-        # Welcome
-        if [ ! -L "$HOME/.config/zsh/custom/welcome.zsh" ]; then
-            ln -s "$HOME/.config/zsh/welcome.zsh" "$HOME/.config/zsh/custom/welcome.zsh"
-            echo -e " - ${GREEN}Welcome Created${NC}"
-        else
-            echo -e " - ${GREEN}Welcome OK${NC}"
-        fi
+    kv welcome
+    if [[ -L "$HOME/.config/zsh/custom/welcome.zsh" ]]; then
+        ok "OK"
+    else
+        ln -s "$HOME/.config/zsh/welcome.zsh" "$HOME/.config/zsh/custom/welcome.zsh"
+        ok "created"
     fi
 }
 
 run_all_hooks() {
-    echo -e "${BLUE}Check configurations${NC}"
-    hook_config # Must be first
-    hook_alacritty
-    hook_bat
-    hook_dunst
+    echo -e "${BLUE}Configuration${NC}"
+    hook_config
+
+    local entry
+    for entry in "${STOW_APPS[@]}"; do
+        stow_if_missing "$entry"
+    done
+
     hook_fonts
-    hook_git
     hook_hyprland
     hook_ly
-    hook_niri
-    hook_rofi
-    hook_wayland
     hook_waybar
-    hook_zed
+    hook_wayland
     hook_zsh
 }
 
-check_packages() {
-    local categories_output=()
+print_pkg_wrap() {
+    local -n pkgs_ref=$1
+    local maxw=$((COLS - 4))
+    local pkg color line="" cur=0 sep="" tok_len
 
-    echo -e "${BLUE}Check packages${NC}"
+    for pkg in "${pkgs_ref[@]}"; do
+        if pkg_installed "$pkg"; then color="$GREEN"; else color="$RED"; missing=$((missing + 1)); fi
+        tok_len=$((${#pkg} + ${#sep}))
 
-    for file in "$PKGS_DIR"/*.txt; do
-        if [[ -f "$file" ]]; then
-            local cat_name=$(basename "$file" .txt)
-            local current_cat_pkgs=()
-
-            [[ "$IS_WSL" == true && "$cat_name" != "base" ]] && continue
-
-            while IFS= read -r pkg || [[ -n "$line" ]]; do
-                [[ -z "$pkg" || "$pkg" == \#* ]] && continue
-
-                if pacman -Qi "$pkg" > /dev/null 2>&1; then
-                    current_cat_pkgs+=("$pkg")
-                else
-                    current_cat_pkgs+=("${RED}$pkg${NC}")
-                fi
-            done < "$file"
-
-            if [ ${#current_cat_pkgs[@]} -gt 0 ]; then
-                local temp_string=$(printf "%b, " "${current_cat_pkgs[@]}")
-                local joined_pkgs=${temp_string%, }
-                categories_output+=("  ${BLUE}${cat_name^}${NC}: $joined_pkgs")
-            fi
+        if (( cur > 0 && cur + tok_len > maxw )); then
+            echo -e "    $line"
+            line="" cur=0 sep=""
+            tok_len=${#pkg}
         fi
+
+        line+="${sep}${color}${pkg}${NC}"
+        cur=$((cur + tok_len))
+        sep=", "
+    done
+    [[ -n "$line" ]] && echo -e "    $line"
+}
+
+check_packages() {
+    echo -e "${BLUE}Packages${NC}"
+
+    local file cat pkgs pkg total=0 missing=0
+    for file in "$PKGS_DIR"/*.txt; do
+        [[ -f "$file" ]] || continue
+        cat=$(basename "$file" .txt)
+        [[ "$IS_WSL" == true && "$cat" != "base" ]] && continue
+
+        pkgs=()
+        while IFS= read -r pkg; do pkgs+=("$pkg"); done < <(read_pkgs "$file")
+        [[ ${#pkgs[@]} -eq 0 ]] && continue
+
+        total=$((total + ${#pkgs[@]}))
+        printf "  %s\n" "${cat^}"
+        print_pkg_wrap pkgs
     done
 
-    printf "%b\n\n" "$(IFS=$'\n'; echo "${categories_output[*]}")"
+    echo
+    echo -e "  ${BLUE}$((total - missing))/${total} installed${NC}"
+    echo
 }
 
 install() {
-    local file=("$PKGS_DIR"/"$1".txt)
-    local pkgs=()
-
-    if [[ -f "$file" ]]; then
-        while IFS= read -r pkg || [[ -n "$line" ]]; do
-            [[ -z "$pkg" || "$pkg" == \#* ]] && continue
-            pkgs+=("$pkg")
-        done < "$file"
+    local cat="$1"
+    if [[ -z "$cat" ]]; then
+        echo -e "${RED}Error: specify a category${NC}"
+        echo
+        list_categories
+        return 1
     fi
 
-    echo -e "${BLUE}Installing from $1${NC}"
+    local file="$PKGS_DIR/$cat.txt"
+    if [[ ! -f "$file" ]]; then
+        echo -e "${RED}Error: unknown category '$cat'${NC}"
+        echo
+        list_categories
+        return 1
+    fi
 
-    if [ ${#pkgs[@]} -gt 0 ]; then
-        echo -e "${YELLOW}${#pkgs[@]} packages will be installed.${NC}\n"
-        sudo pacman -Sy --needed "${pkgs[@]}"
-    else
+    local pkgs=() pkg
+    while IFS= read -r pkg; do pkgs+=("$pkg"); done < <(read_pkgs "$file")
+
+    echo -e "${BLUE}Installing: $cat${NC}"
+    if [[ ${#pkgs[@]} -eq 0 ]]; then
         echo -e "${GREEN}Nothing to do${NC}"
+        return 0
     fi
+
+    echo -e "${YELLOW}${#pkgs[@]} package(s)${NC}\n"
+    sudo pacman -S --needed "${pkgs[@]}"
 }
 
 show_help() {
     echo "Usage: dowfiles [COMMAND]"
-    echo ""
+    echo
     echo "Commands:"
-    echo "  check    Check installation configuration"
-    echo "  install  Install missing packages and configuration"
-    echo "  help     Show this message"
+    echo "  check               Check packages + configuration state"
+    echo "  install <category>  Install packages from one category"
+    echo "  help                Show this message"
+    echo
+    list_categories
 }
 
-# Main
 clear
 echo -ne "${BLUE}Dowfiles Manager${NC} - "
 if [[ "$IS_WSL" == true ]]; then
@@ -358,25 +310,21 @@ else
     echo -e "${YELLOW}Native${NC}\n"
 fi
 
-case "$1" in
+case "${1:-}" in
     check)
         check_packages
         run_all_hooks
         ;;
     install)
-        install $2
+        install "${2:-}" || exit 1
         run_all_hooks
         ;;
-    help|--help|-h)
+    help|--help|-h|"")
         show_help
         ;;
     *)
-        if [[ -z "$1" ]]; then
-            show_help
-        else
-            echo -e "${RED}Error: Unknown command $1${NC}\n"
-            show_help
-            exit 1
-        fi
+        echo -e "${RED}Error: unknown command '$1'${NC}\n"
+        show_help
+        exit 1
         ;;
 esac
