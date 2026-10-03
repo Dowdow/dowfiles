@@ -31,10 +31,14 @@
   },
   "buffer_font_size": 15,
   "disable_ai": true,
-  "icon_theme": "Catppuccin Mocha",
+  "icon_theme": {
+    "mode": "light",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha"
+  },
   "soft_wrap": "editor_width",
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "Catppuccin Mocha",
     "dark": "Catppuccin Mocha",
   },

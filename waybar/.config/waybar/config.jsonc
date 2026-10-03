@@ -62,6 +62,7 @@
   "tray": {
     "spacing": 10,
     "icon-size": 16,
+    "show-passive-items": true
   },
   "hyprland/workspaces": {
     "all-outputs": true,
